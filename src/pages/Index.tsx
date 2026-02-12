@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import Exchanges from "@/components/Exchanges";
 import HowItWorks from "@/components/HowItWorks";
 import Benefits from "@/components/Benefits";
 import FeeTable from "@/components/FeeTable";
@@ -13,6 +14,8 @@ const Index = () => (
   <main className="min-h-screen bg-background overflow-x-hidden">
     <Navbar />
     <HeroSection />
+    <div className="section-divider" />
+    <Exchanges />
     <div className="section-divider" />
     <HowItWorks />
     <div className="section-divider" />
