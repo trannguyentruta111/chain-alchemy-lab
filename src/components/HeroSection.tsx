@@ -65,28 +65,6 @@ const HeroSection = () => (
         </a>
       </motion.div>
 
-      {/* Exchange logos */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.7 }}
-      >
-        <p className="text-sm text-muted-foreground mb-4">Hỗ trợ các sàn giao dịch hàng đầu</p>
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-          {exchanges.map((name, i) => (
-            <motion.div
-              key={name}
-              className="px-5 py-2.5 rounded-lg border border-border/50 bg-card/50 backdrop-blur text-sm font-display font-semibold text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 + i * 0.1 }}
-            >
-              {name}
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
       {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
