@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { supabase } from "@/integrations/supabase/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -36,13 +37,24 @@ const ContactForm = () => {
     defaultValues: { name: "", email: "", exchange: "", telegram: "" },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const { data: result, error } = await supabase.functions.invoke('send-contact', {
+        body: data,
+      });
+
+      if (error) throw error;
+      if (!result?.success) throw new Error(result?.error || 'Unknown error');
+
       toast.success("Đăng ký thành công! Chúng tôi sẽ liên hệ bạn sớm nhất.");
       form.reset();
-    }, 1500);
+    } catch (err) {
+      console.error('Submit error:', err);
+      toast.error("Có lỗi xảy ra. Vui lòng thử lại sau.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
