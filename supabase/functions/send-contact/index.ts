@@ -5,17 +5,71 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 3; // max requests
+const RATE_WINDOW = 60 * 1000; // per 1 minute
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW });
+    return false;
+  }
+
+  entry.count++;
+  if (entry.count > RATE_LIMIT) {
+    return true;
+  }
+  return false;
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Rate limiting by IP
+    const ip = req.headers.get('x-forwarded-for') || req.headers.get('cf-connecting-ip') || 'unknown';
+    if (isRateLimited(ip)) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Too many requests. Please try again later.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     const { name, email, exchange, telegram } = await req.json();
 
     if (!name || !email || !exchange || !telegram) {
       return new Response(
         JSON.stringify({ success: false, error: 'Missing required fields' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Server-side validation
+    if (name.length > 100 || email.length > 255 || telegram.length > 100) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Input too long' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid email' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const allowedExchanges = ['Binance', 'OKX', 'Bybit', 'MEXC', 'Bitget'];
+    if (!allowedExchanges.includes(exchange)) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid exchange' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -33,12 +87,15 @@ serve(async (req) => {
 
     const now = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
 
+    // Escape HTML to prevent injection in Telegram message
+    const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     const message = `📋 <b>ĐĂNG KÝ MỚI</b>
 ━━━━━━━━━━━━━━
-👤 Họ tên: ${name}
-📧 Email: ${email}
-📊 Sàn: ${exchange}
-💬 Telegram: ${telegram}
+👤 Họ tên: ${escapeHtml(name)}
+📧 Email: ${escapeHtml(email)}
+📊 Sàn: ${escapeHtml(exchange)}
+💬 Telegram: ${escapeHtml(telegram)}
 🕐 Thời gian: ${now}`;
 
     const telegramRes = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {

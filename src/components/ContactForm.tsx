@@ -31,6 +31,7 @@ const highlights = [
 const ContactForm = () => {
   const { ref, isVisible } = useScrollAnimation();
   const [loading, setLoading] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -38,6 +39,13 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    // Honeypot check - bots will fill this hidden field
+    if (honeypot) {
+      toast.success("Đăng ký thành công! Chúng tôi sẽ liên hệ bạn sớm nhất.");
+      form.reset();
+      return;
+    }
+
     setLoading(true);
     try {
       const { data: result, error } = await supabase.functions.invoke('send-contact', {
@@ -137,6 +145,18 @@ const ContactForm = () => {
               </h3>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  {/* Honeypot field - hidden from real users */}
+                  <div className="absolute opacity-0 pointer-events-none" style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true" tabIndex={-1}>
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      autoComplete="off"
+                    />
+                  </div>
                   <FormField
                     control={form.control}
                     name="name"
