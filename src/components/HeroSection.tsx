@@ -33,7 +33,7 @@ const HeroSection = () => (
       >
         Backcom Crypto
         <br />
-        <span className="gradient-text">Hoàn Phí Lên Đến 50%</span>
+        <span className="gradient-text">Hoàn phí lên đến 99%</span>
       </motion.h1>
 
       <motion.p
