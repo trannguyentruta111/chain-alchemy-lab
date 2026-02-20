@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const links = [
+  { label: "Backcom", href: "#exchanges" },
   { label: "Cách hoạt động", href: "#how-it-works" },
   { label: "Lợi ích", href: "#benefits" },
   { label: "Tỷ lệ hoàn phí", href: "#fee-table" },

@@ -24,7 +24,7 @@ const HowItWorks = () => {
             Cách Thức <span className="gradient-text">Hoạt Động</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Chỉ 3 bước đơn giản để bắt đầu nhận hoàn phí giao dịch
+            Chỉ 3 bước đơn giản để bắt đầu nhận backcom crypto
           </p>
         </motion.div>
 

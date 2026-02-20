@@ -27,7 +27,7 @@ const FeeTable = () => {
             Tỷ Lệ <span className="gradient-text">Hoàn Phí</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            So sánh tỷ lệ hoàn phí trên các sàn giao dịch hàng đầu
+            So sánh tỷ lệ backcom trên các sàn giao dịch hàng đầu
           </p>
         </motion.div>
 

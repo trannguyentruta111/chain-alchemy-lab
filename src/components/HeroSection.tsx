@@ -21,7 +21,7 @@ const HeroSection = () => (
       >
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 mb-8">
           <Zap size={14} className="text-primary" />
-          <span className="text-sm text-primary font-medium">Tiết kiệm tối đa phí giao dịch</span>
+          <span className="text-sm text-primary font-medium">Backcom Crypto - Tiết kiệm phí giao dịch</span>
         </div>
       </motion.div>
 
@@ -31,9 +31,9 @@ const HeroSection = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.15 }}
       >
-        Hoàn Phí Giao Dịch Crypto
+        Backcom Crypto
         <br />
-        <span className="gradient-text">Lên Đến 50%</span>
+        <span className="gradient-text">Hoàn Phí Lên Đến 50%</span>
       </motion.h1>
 
       <motion.p
@@ -42,7 +42,7 @@ const HeroSection = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
       >
-        Đăng ký qua mã giới thiệu của chúng tôi trên các sàn giao dịch hàng đầu và nhận hoàn phí giao dịch mỗi ngày, tự động và minh bạch.
+        Đăng ký qua mã giới thiệu của chúng tôi trên các sàn giao dịch hàng đầu và nhận backcom crypto mỗi ngày, tự động và minh bạch.
       </motion.p>
 
       <motion.div

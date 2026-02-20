@@ -56,7 +56,7 @@ const Benefits = () => {
             Lợi Ích <span className="gradient-text">Khi Tham Gia</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Tối ưu chi phí giao dịch với những ưu đãi vượt trội
+            Tối ưu chi phí giao dịch với backcom crypto vượt trội
           </p>
         </motion.div>
 
