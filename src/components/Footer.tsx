@@ -21,7 +21,7 @@ const Footer = () => (
       </div>
       <div className="section-divider mt-8 mb-6" />
       <p className="text-center text-xs text-muted-foreground">
-        © 2025 Crypto24h.online. All rights reserved.
+        © 2026 Crypto24h.online. All rights reserved.
       </p>
     </div>
   </footer>
