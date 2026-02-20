@@ -108,7 +108,7 @@ const Exchanges = () => {
             Sàn Giao Dịch <span className="gradient-text">Đối Tác</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Đăng ký qua mã giới thiệu để nhận hoàn phí tối đa
+            Đăng ký qua mã giới thiệu để nhận backcom tối đa
           </p>
         </motion.div>
 

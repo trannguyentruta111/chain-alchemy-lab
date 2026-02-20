@@ -6,7 +6,7 @@ const Footer = () => (
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <span className="font-display text-xl font-bold gradient-text">Crypto24h</span>
-          <p className="text-sm text-muted-foreground mt-1">Hoàn phí giao dịch crypto uy tín #1</p>
+          <p className="text-sm text-muted-foreground mt-1">Backcom crypto uy tín #1 Việt Nam</p>
         </div>
         <div className="flex items-center gap-6">
           <a href="#" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 text-sm">
@@ -21,7 +21,7 @@ const Footer = () => (
       </div>
       <div className="section-divider mt-8 mb-6" />
       <p className="text-center text-xs text-muted-foreground">
-        © 2024 Crypto24h.online. All rights reserved.
+        © 2025 Crypto24h.online. All rights reserved.
       </p>
     </div>
   </footer>
